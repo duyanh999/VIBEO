@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-interface NowPlayingMovies {
+interface Movies {
   vote_average: number;
   original_title: string;
   overview: string;
@@ -12,15 +12,8 @@ import { Divider, Pagination, Tabs, TabsProps } from "antd";
 import Link from "next/link";
 import CarouselMovie from "../Component/carouselMovie";
 import OverlayFadeRenderItem from "../Component/OverlayFadePosterItems/overlayFadeitems";
+import NowPlayingMovies from "./NowPlayingMovies/nowPlayingMovies";
 import styles from "./styles.module.css";
-
-async function getNowPlayingMovies() {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${2}`,
-    options
-  );
-  return res.json();
-}
 
 async function getPopularMovies() {
   const res = await fetch(
@@ -60,7 +53,6 @@ async function getNewsMovies() {
 }
 
 export default async function Page() {
-  const nowPlayingMoviesData = getNowPlayingMovies();
   const popularMoviesData = getPopularMovies();
   const topRatedMoviesData = getTopRatedMovies();
   const upComingMoviesData = getUpComingMovies();
@@ -68,26 +60,19 @@ export default async function Page() {
   const newsMovieData = getNewsMovies();
 
   // Wait for the promises to resolve
-  const [
-    nowPlayingMovies,
-    popularMovies,
-    topRatedMovies,
-    upComingMovies,
-    trendingMovies,
-    newsMovie,
-  ] = await Promise.all([
-    nowPlayingMoviesData,
-    popularMoviesData,
-    topRatedMoviesData,
-    upComingMoviesData,
-    trendingMovieData,
-    newsMovieData,
-  ]);
+  const [popularMovies, topRatedMovies, upComingMovies, trendingMovies] =
+    await Promise.all([
+      popularMoviesData,
+      topRatedMoviesData,
+      upComingMoviesData,
+      trendingMovieData,
+      newsMovieData,
+    ]);
   const firstFourtopRatedMovies = topRatedMovies?.results?.slice(0, 4);
   const firstFourupComingMovies = upComingMovies?.results?.slice(0, 4);
   const firstThreeTrendingMoviesMovies = trendingMovies?.results?.slice(0, 3);
   console.log("trend", trendingMovies);
-  const renderImageNewsDetail = (item: NowPlayingMovies) => {
+  const renderImageNewsDetail = (item: Movies) => {
     return (
       <OverlayFadeRenderItem
         id={item?.id}
@@ -171,49 +156,14 @@ export default async function Page() {
       </div>
     );
   };
-  const items: TabsProps["items"] = [
-    {
-      key: "1",
-      label: `ALL MOVIES`,
-      children: (
-        <div className="grid place-content-center mt-[3%] gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 ">
-          {nowPlayingMovies?.results?.map(renderImageNewsDetail)}
-        </div>
-      ),
-    },
-    {
-      key: "2",
-      label: `Tab 2`,
-      children: (
-        <Link href="/timer" passHref>
-          timer
-        </Link>
-      ),
-    },
-    {
-      key: "3",
-      label: `Tab 3`,
-      children: (
-        <Link href="/timer" passHref>
-          timer
-        </Link>
-      ),
-    },
-  ];
+
   return (
     <div className="w-full">
       <CarouselMovie dataPopularMovies={popularMovies} />
       <div className="md:mx-24">
         {suggestUserChoiceList()}
         {suggestAdminChoiceList()}
-        <Tabs
-          defaultActiveKey="1"
-          items={items}
-          className="[&>.ant-tabs-tab]:"
-        />
-        <div className="flex bg-[#c21313] justify-center">
-          <Pagination defaultCurrent={1} total={50} className="text-white" />
-        </div>
+        <NowPlayingMovies />
       </div>
     </div>
   );

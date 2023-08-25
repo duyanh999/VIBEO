@@ -21,14 +21,14 @@ export default function NavBar() {
                   MOVIES
                 </span>
               </Link>
-              <Link
+              {/* <Link
                 className="mx-4 group text-black-500 transition-all duration-300 ease-in-out"
                 href="/theater-film"
               >
                 <span className="bg-left-bottom text-sm font-bold bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                   THEATER
                 </span>
-              </Link>
+              </Link> */}
             </nav>
           </div>
         </div>
