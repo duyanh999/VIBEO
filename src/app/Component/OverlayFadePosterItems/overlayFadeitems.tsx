@@ -8,6 +8,7 @@ import { StarOutlined } from "@ant-design/icons";
 import styles from "./styles.module.css";
 import GenresMovies from "../GenresMovies/genresMovies";
 import Link from "next/link";
+import { originalPathPoster } from "@/core/constants";
 interface Props {
   name: string;
   id: number;
@@ -33,7 +34,6 @@ const OverlayFadeRenderItem = ({
   description,
   type,
 }: Props) => {
-  const originalPathPosster = "https://image.tmdb.org/t/p/original/";
   const checkOverLayColor = (type: string) => {
     if (type === "suggestAdmin") {
       return styles.overlayBlack;
@@ -41,10 +41,9 @@ const OverlayFadeRenderItem = ({
       return styles.overlayRed;
     }
   };
-  console.log("id", id);
   return (
     <div className={`${styles.container}  hover:scale-105`}>
-      <img alt="" src={originalPathPosster + image} className={styles.image} />
+      <img alt="" src={originalPathPoster + image} className={styles.image} />
       <div className={checkOverLayColor(type!)}>
         <div className={`${styles.text} line-clamp-6 grid grid-cols-1`}>
           <div className="text-xs line-clamp-2">{name!}</div>

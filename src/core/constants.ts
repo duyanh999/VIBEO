@@ -7,4 +7,6 @@ const options = {
   },
 };
 
-export { options };
+const originalPathPoster = "https://image.tmdb.org/t/p/original/";
+
+export { options, originalPathPoster };

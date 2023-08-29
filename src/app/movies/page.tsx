@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-interface Movies {
+interface PosterMovies {
   vote_average: number;
   original_title: string;
   overview: string;
@@ -8,8 +8,7 @@ interface Movies {
   id: number;
 }
 import { options } from "@/core/constants";
-import { Divider, Pagination, Tabs, TabsProps } from "antd";
-import Link from "next/link";
+import { Divider } from "antd";
 import CarouselMovie from "../Component/carouselMovie";
 import OverlayFadeRenderItem from "../Component/OverlayFadePosterItems/overlayFadeitems";
 import NowPlayingMovies from "./NowPlayingMovies/nowPlayingMovies";
@@ -71,8 +70,7 @@ export default async function Page() {
   const firstFourtopRatedMovies = topRatedMovies?.results?.slice(0, 4);
   const firstFourupComingMovies = upComingMovies?.results?.slice(0, 4);
   const firstThreeTrendingMoviesMovies = trendingMovies?.results?.slice(0, 3);
-  console.log("trend", trendingMovies);
-  const renderImageNewsDetail = (item: Movies) => {
+  const renderPosterMovies = (item: PosterMovies) => {
     return (
       <OverlayFadeRenderItem
         id={item?.id}
@@ -84,7 +82,7 @@ export default async function Page() {
     );
   };
 
-  const renderSuggestAdminChoiceList = (item: any) => {
+  const renderSuggestAdminChoiceList = (item: PosterMovies) => {
     return (
       <OverlayFadeRenderItem
         id={item?.id}
@@ -112,7 +110,7 @@ export default async function Page() {
               </>
             </div>
           </div>
-          {firstFourupComingMovies?.map(renderImageNewsDetail)}
+          {firstFourupComingMovies?.map(renderPosterMovies)}
         </div>
         <div className="grid place-content-center mt-[3%] gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 ">
           <div
@@ -126,7 +124,7 @@ export default async function Page() {
               </>
             </div>
           </div>
-          {firstFourtopRatedMovies?.map(renderImageNewsDetail)}
+          {firstFourtopRatedMovies?.map(renderPosterMovies)}
         </div>
       </div>
     );

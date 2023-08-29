@@ -16,24 +16,22 @@ interface NowPlayingMovies {
 
 const NowPlayingMovies = () => {
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
-  const [current, setCurrent] = useState(3);
+  const [pageState, setPageState] = useState(1);
 
   const onChange: PaginationProps["onChange"] = (page) => {
-    console.log(page);
-    setCurrent(page);
+    setPageState(page);
   };
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${current}`,
+      `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${pageState}`,
       options
     )
       .then((res) => res.json())
       .then((data) => {
         setNowPlayingMovies(data.results);
       });
-  }, [current]);
-  console.log("data", nowPlayingMovies);
+  }, [pageState]);
   const renderImageNewsDetail = (item: NowPlayingMovies) => {
     return (
       <OverlayFadeRenderItem
@@ -74,14 +72,15 @@ const NowPlayingMovies = () => {
     //   ),
     // },
   ];
+
   return (
     <>
       <Tabs defaultActiveKey="1" items={items} className="[&>.ant-tabs-tab]:" />
       <div className="flex bg-[#c21313] my-5 justify-center">
         <Pagination
-          defaultCurrent={1}
+          defaultCurrent={pageState}
           total={500}
-          current={current}
+          current={pageState}
           onChange={onChange}
           className="text-white"
         />
