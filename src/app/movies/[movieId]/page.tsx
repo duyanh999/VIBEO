@@ -73,85 +73,69 @@ export default function Page({ params }: { params: { movieId: number } }) {
   const sliceVideoMovies = videoMovies.slice(0, 8);
   const sliceCredits = credits?.cast.slice(0, 8);
 
-  const translateItemTrailer = useCallback(
-    (index: number) => {
-      if (index === 0) {
-        return;
-      }
-      if (index === 1) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()}`;
-      }
-      if (index === 2) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()}`;
-      }
-      if (index === 3) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()}`;
-      }
-      if (index === 4) {
-        return;
-      }
-      if (index === 5) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()}`;
-      }
-      if (index === 6) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()}`;
-      }
-      if (index === 7) {
-        return;
-      }
-    },
-    [straighten]
-  );
+  const translateItemTrailer = (index: number) => {
+    if (index === 0) {
+      return;
+    }
+    if (index === 1) {
+      return !straighten ? "translate-y-0" : `translate-y-7`;
+    }
+    if (index === 2) {
+      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
+    }
+    if (index === 3) {
+      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
+    }
+    if (index === 4) {
+      return;
+    }
+    if (index === 5) {
+      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
+    }
+    if (index === 6) {
+      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
+    }
+    if (index === 7) {
+      return;
+    }
+  };
 
-  const translateItemCredits = useCallback(
-    (index: number) => {
-      if (index === 0) {
-        return;
-      }
-      if (index === 1) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-      }
-      if (index === 2) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-      }
-      if (index === 3) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-      }
-      if (index === 4) {
-        return;
-      }
-      if (index === 5) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-      }
-      if (index === 6) {
-        return !straighten
-          ? "translate-y-0"
-          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-      }
-      if (index === 7) {
-        return;
-      }
-    },
-    [straighten]
-  );
+  const translateItemCredits = (index: number) => {
+    if (index === 0) {
+      return;
+    }
+    if (index === 1) {
+      return !straighten
+        ? "translate-y-0"
+        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+    }
+    if (index === 2) {
+      return !straighten
+        ? "translate-y-0"
+        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+    }
+    if (index === 3) {
+      return !straighten
+        ? "translate-y-0"
+        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+    }
+    if (index === 4) {
+      return;
+    }
+    if (index === 5) {
+      return !straighten
+        ? "translate-y-0"
+        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+    }
+    if (index === 6) {
+      return !straighten
+        ? "translate-y-0"
+        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+    }
+    if (index === 7) {
+      return;
+    }
+  };
 
   const resolutionItemCredit = useCallback((index: number) => {
     if (index === 0) {
