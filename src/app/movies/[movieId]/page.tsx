@@ -200,7 +200,7 @@ export default function Page({ params }: { params: { movieId: number } }) {
         className={`${styles.container} transition delay-300 duration-300 ease-in-out`}
       >
         <div
-          className={`video-responsive object-cover w-[150px] h-[400px] ${resolutionItemCredit(
+          className={`video-responsive object-cover ${resolutionItemCredit(
             index
           )}`}
         >
