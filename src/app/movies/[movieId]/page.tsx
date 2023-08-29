@@ -197,7 +197,7 @@ export default function Page({ params }: { params: { movieId: number } }) {
   const renderCredits = (item: any, index: number) => {
     return (
       <div
-        className={`${styles.container}   transition delay-300 duration-300 ease-in-out`}
+        className={`${styles.container} transition delay-300 duration-300 ease-in-out`}
       >
         <div
           className={`video-responsive object-cover w-[150px] h-[400px] ${resolutionItemCredit(
@@ -209,7 +209,7 @@ export default function Page({ params }: { params: { movieId: number } }) {
             className={`relative w-full h-full flex hover:scale-125 ${translateItemCredits(
               index
             )} transition delay-700 duration-1000`}
-            src={originalPathPoster + item?.profile_path}
+            src={originalPathPoster + item?.profile_path!}
           />
           <div className="text-white absolute left-[15%]">{item?.name}</div>
         </div>
@@ -246,7 +246,7 @@ export default function Page({ params }: { params: { movieId: number } }) {
           <div>{movieDetail?.overview}</div>
         </div>
         <div className="mt-[10%] w-[1000px]">
-          <img alt="" src={originalPathPoster + movieDetail?.backdrop_path} />
+          <img alt="" src={originalPathPoster + movieDetail?.backdrop_path!} />
         </div>
       </div>
     );
