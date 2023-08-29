@@ -2,7 +2,7 @@
 import GenresMovies from "@/app/Component/GenresMovies/genresMovies";
 /* eslint-disable @next/next/no-img-element */
 import { options, originalPathPoster } from "@/core/constants";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 interface MovieDetailType {
   runtime: number;
@@ -60,84 +60,100 @@ export default function Page({ params }: { params: { movieId: number } }) {
       });
   }, [params?.movieId]);
 
-  const sliceVideoMovies = videoMovies.slice(0, 8);
-  const sliceCredits = credits?.cast.slice(0, 8);
-
-  function getRandomNumber() {
+  const getRandomNumber = () => {
     var numbers = [7, 14, 9, 8];
     var randomIndex = Math.floor(Math.random() * numbers.length);
     return numbers[randomIndex];
-  }
+  };
 
   useEffect(() => {
     getRandomNumber();
   }, []);
 
-  const translateItemTrailer = (index: number) => {
-    if (index === 0) {
-      return;
-    }
-    if (index === 1) {
-      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
-    }
-    if (index === 2) {
-      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
-    }
-    if (index === 3) {
-      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
-    }
-    if (index === 4) {
-      return;
-    }
-    if (index === 5) {
-      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
-    }
-    if (index === 6) {
-      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
-    }
-    if (index === 7) {
-      return;
-    }
-  };
+  const sliceVideoMovies = videoMovies.slice(0, 8);
+  const sliceCredits = credits?.cast.slice(0, 8);
 
-  const translateItemCredits = (index: number) => {
-    if (index === 0) {
-      return;
-    }
-    if (index === 1) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-    }
-    if (index === 2) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-    }
-    if (index === 3) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-    }
-    if (index === 4) {
-      return;
-    }
-    if (index === 5) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-    }
-    if (index === 6) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
-    }
-    if (index === 7) {
-      return;
-    }
-  };
+  const translateItemTrailer = useCallback(
+    (index: number) => {
+      if (index === 0) {
+        return;
+      }
+      if (index === 1) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()}`;
+      }
+      if (index === 2) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()}`;
+      }
+      if (index === 3) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()}`;
+      }
+      if (index === 4) {
+        return;
+      }
+      if (index === 5) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()}`;
+      }
+      if (index === 6) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()}`;
+      }
+      if (index === 7) {
+        return;
+      }
+    },
+    [straighten]
+  );
 
-  const resolutionItemCredit = (index: number) => {
+  const translateItemCredits = useCallback(
+    (index: number) => {
+      if (index === 0) {
+        return;
+      }
+      if (index === 1) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      }
+      if (index === 2) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      }
+      if (index === 3) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      }
+      if (index === 4) {
+        return;
+      }
+      if (index === 5) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      }
+      if (index === 6) {
+        return !straighten
+          ? "translate-y-0"
+          : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      }
+      if (index === 7) {
+        return;
+      }
+    },
+    [straighten]
+  );
+
+  const resolutionItemCredit = useCallback((index: number) => {
     if (index === 0) {
       return "w-[80px] h-[120px]";
     }
@@ -162,12 +178,12 @@ export default function Page({ params }: { params: { movieId: number } }) {
     if (index === 7) {
       return "w-[80px] h-[120px]";
     }
-  };
+  }, []);
 
   const renderVideosTrailer = (item: any, index: number) => {
     return (
       <div
-        className={`${styles.container}  hover:scale-125 transition delay-300 duration-300 ease-in-out`}
+        className={`${styles.container} hover:scale-125 transition delay-300 duration-300 ease-in-out`}
       >
         <div className="video-responsive object-cover w-[150px] h-[400px]">
           <iframe
