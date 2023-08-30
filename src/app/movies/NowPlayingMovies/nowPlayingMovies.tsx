@@ -123,7 +123,7 @@ const NowPlayingMovies = () => {
   return (
     <>
       <Search
-        placeholder="input search text"
+        placeholder="Search Movie Here"
         onSearch={onSearch}
         style={{ width: 200, backgroundColor: "#c21313", borderRadius: "6px" }}
       />
