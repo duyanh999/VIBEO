@@ -43,9 +43,8 @@ const CarouselMovieItems = ({
           </div>
           <div className="flex">
             <Link rel="preload" href={`movies/${id}`}>
-              <Button className="text-white mr-3 w-28">Watch Video</Button>
+              <Button className="text-white mr-3 w-28">Go Detail</Button>
             </Link>
-            <Button className="text-white w-28 text-center">Watch later</Button>
           </div>
         </div>
         <div className="shadow-2xl my-16">

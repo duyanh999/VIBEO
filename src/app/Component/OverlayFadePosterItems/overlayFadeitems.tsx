@@ -58,7 +58,7 @@ const OverlayFadeRenderItem = ({
             )}
           </div>
           <Link prefetch={true} href={`movies/${id}`}>
-            <Button className="text-white mt-3">Video</Button>
+            <Button className="text-white mt-3">Detail</Button>
           </Link>
           {/* <div className="text-xs">{formatDate}</div> */}
         </div>
