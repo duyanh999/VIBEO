@@ -13,6 +13,12 @@ interface MovieDetailType {
   overview: string;
   vote_average: number;
   backdrop_path: string;
+  poster_path: string;
+}
+
+interface CreditType {
+  profile_path: string;
+  name: string;
 }
 
 export default function Page({ params }: { params: { movieId: number } }) {
@@ -60,19 +66,14 @@ export default function Page({ params }: { params: { movieId: number } }) {
       });
   }, [params?.movieId]);
 
-  const getRandomNumber = () => {
-    var numbers = [7, 14, 9, 8];
-    var randomIndex = Math.floor(Math.random() * numbers.length);
-    return numbers[randomIndex];
-  };
-
-  useEffect(() => {
-    getRandomNumber();
-  }, []);
-
   const sliceVideoMovies = videoMovies.slice(0, 8);
-  const sliceCredits = credits?.cast.slice(0, 8);
-
+  const sliceCredits = credits?.cast.slice(0, 6);
+  const filterCreditsDirecting = credits?.crew
+    .filter((item: any) => item.known_for_department === "Directing")
+    .slice(0, 1);
+  const filterCreditsWriting = credits?.crew
+    .filter((item: any) => item.known_for_department === "Writing")
+    .slice(0, 1);
   const translateItemTrailer = (index: number) => {
     if (index === 0) {
       return;
@@ -81,19 +82,19 @@ export default function Page({ params }: { params: { movieId: number } }) {
       return !straighten ? "translate-y-0" : `translate-y-7`;
     }
     if (index === 2) {
-      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
+      return !straighten ? "translate-y-0" : "translate-y-14";
     }
     if (index === 3) {
-      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
+      return !straighten ? "translate-y-0" : "-translate-y-7";
     }
     if (index === 4) {
       return;
     }
     if (index === 5) {
-      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
+      return !straighten ? "translate-y-0" : "translate-y-14";
     }
     if (index === 6) {
-      return !straighten ? "translate-y-0" : `translate-y-${getRandomNumber()}`;
+      return !straighten ? "translate-y-0" : "translate-y-9";
     }
     if (index === 7) {
       return;
@@ -102,35 +103,25 @@ export default function Page({ params }: { params: { movieId: number } }) {
 
   const translateItemCredits = (index: number) => {
     if (index === 0) {
-      return;
+      return `translate-y-20 `;
     }
     if (index === 1) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      return `translate-y-4 `;
     }
     if (index === 2) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      return `translate-y-16 `;
     }
     if (index === 3) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      return `translate-y-12 `;
     }
     if (index === 4) {
-      return;
+      return `translate-y-20 `;
     }
     if (index === 5) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      return `translate-y-5 `;
     }
     if (index === 6) {
-      return !straighten
-        ? "translate-y-0"
-        : `translate-y-${getRandomNumber()} translate-x-${getRandomNumber()}`;
+      return `translate-y-0 `;
     }
     if (index === 7) {
       return;
@@ -142,13 +133,13 @@ export default function Page({ params }: { params: { movieId: number } }) {
       return "w-[80px] h-[120px]";
     }
     if (index === 1) {
-      return "w-[140px] h-[180px]";
-    }
-    if (index === 2) {
       return "w-[80px] h-[120px]";
     }
+    if (index === 2) {
+      return "w-[140px] h-[180px]";
+    }
     if (index === 3) {
-      return "w-[120px] h-[150px]";
+      return "w-[80px] h-[120px]";
     }
     if (index === 4) {
       return "w-[80px] h-[120px]";
@@ -194,7 +185,7 @@ export default function Page({ params }: { params: { movieId: number } }) {
     );
   };
 
-  const renderCredits = (item: any, index: number) => {
+  const renderCredits = (item: CreditType, index: number) => {
     return (
       <div
         className={`${styles.container} transition delay-300 duration-300 ease-in-out`}
@@ -227,7 +218,7 @@ export default function Page({ params }: { params: { movieId: number } }) {
 
   const detailMovie = () => {
     return (
-      <div className="text-white mt-[5%] mx-24 flex">
+      <div className="text-white mt-[10%] mx-36 flex">
         <div className="mr-[20%]">
           <div className="flex text-xs">
             <div className="w-[50%]">{formattedTime}</div>
@@ -255,8 +246,14 @@ export default function Page({ params }: { params: { movieId: number } }) {
   const credit = () => {
     return (
       <div>
-        <div className="text-2xl flex justify-center text-white">Cast</div>
-        <div className="grid place-content-center relative mt-[5%] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6 xl:grid-cols-8 ">
+        <div className="text-2xl flex justify-center text-white mt-[5%]">
+          Cast & Director
+        </div>
+        <div className="grid grid-cols-2 relative ml-[20%] place-content-center">
+          {filterCreditsDirecting?.map(renderCredits)}
+          {filterCreditsWriting?.map(renderCredits)}
+        </div>
+        <div className="grid place-content-center relative mt-[5%] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-6 xl:grid-cols-6 ">
           {sliceCredits?.map(renderCredits)}
         </div>
       </div>

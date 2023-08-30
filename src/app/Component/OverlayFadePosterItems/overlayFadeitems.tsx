@@ -48,7 +48,7 @@ const OverlayFadeRenderItem = ({
         <div className={`${styles.text} line-clamp-6 grid grid-cols-1`}>
           <div className="text-xs line-clamp-2">{name!}</div>
           <div className="flex justify-center">
-            {voteAverage}
+            {voteAverage?.toFixed(1)}
             {type !== "suggestAdmin" && (
               <img
                 alt=""
